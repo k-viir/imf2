@@ -1,1 +1,6 @@
 
+Desarrollo de interfaces, practica dos, desarrollo de interfaces mediante programación. 
+
+En esta segunda semana continuamos profundizando en el conocimiento de la librería swing, pero en este caso no queremos depender del diseñador, sino que poco a poco queremos ir transicionando hacia escribir código de forma completamente personalizada punto a lo largo de esta semana, vamos a ver cómo crear un proyecto completamente en blanco, y cómo podemos utilizar el diseñador como ayuda, para ir transfiriendo el código poco a poco 
+
+El objetivo del proyecto que tenéis que desarrollar esta semana, es muy similar al proyecto que habéis desarrollado en la primera semana, es decir, tenéis que hacer un programa de funcionalidad muy sencilla, tal y como por ejemplo una calculadora o similares, pero, el código del proyecto, en este caso, no está la desarrollado utilizando el diseñador de interfaces, sino que lo tenéis que desarrollar escribiendo código desde una plantilla en blanco, eso sí, podéis copiar aquel código que os chive el diseñador de interfaces 

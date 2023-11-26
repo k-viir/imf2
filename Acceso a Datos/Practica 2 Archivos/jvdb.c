@@ -1,13 +1,29 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 int main(int argc, char *argv[])
 {
-    FILE *archivo;
+    char *dir = "db";
     char *nombreArchivo = argv[1];
-    archivo = fopen(strcat("./db/", strcat(nombreArchivo, ".txt")), "a");
-    char *texto = argv[1];
-    fputs(strcat(texto, "\n"), archivo);
+    nombreArchivo = strcat(nombreArchivo, ".txt");
+    // allocate, asignar memoria de forma dinamica
+    char *ruta = malloc(strlen(dir) + strlen(nombreArchivo) + 2);
+    // generar la ruta con el / de por medio
+    sprintf(ruta, "%s/%s", dir, nombreArchivo);
+
+    FILE *archivo = fopen(ruta, "w");
+    if (archivo == NULL)
+    {
+        printf("Fallo al abrir el archivo \n");
+        return 1;
+    }
+
+    fprintf(archivo, argv[2]);
     fclose(archivo);
+    // liberar memoria
+    free(ruta);
+
+    printf("Archivo escrito correctamente \n");
     return 0;
 }

@@ -135,6 +135,7 @@ int deleteFunction(char *searchString, FILE *archivo, char *ruta, char *newValue
     return 0;
 }
 // FUNCION UPDATE (Se actualizarán todas las coincidencias)
+// jvdb.exe update clientes Carlos CarloMagno
 int updateFunction(char *searchString, FILE *archivo, char *ruta, char *newValue)
 {
     FILE *tempArchivo = fopen("temp/temp.txt", "a");
@@ -187,6 +188,7 @@ int updateFunction(char *searchString, FILE *archivo, char *ruta, char *newValue
     return 0;
 }
 // FUNCION UPSERT
+// jvdb.exe upsert clientes CarloMagnoSegundo
 int upsertFunction(char *searchString, FILE *archivo, char *ruta, char *newValue)
 {
     FILE *tempArchivo = fopen("temp/temp.txt", "a");

@@ -13,15 +13,38 @@ void printSuccess()
 }
 
 // Funcion SELECT
-int selectFunction(char *searchString, FILE *archivo, char *ruta, char *all)
+// jvdb.exe select clientes all
+// jvdb.exe select clientes Mario NULL
+int selectFunction(char *searchString, FILE *archivo, char *ruta, char *newValue)
 {
     archivo = fopen(ruta, "r");
-    printf("Es");
+    printf("Estos son los resultados: \n");
+    char linea[1024];
+    while (fgets(linea, sizeof(linea), archivo) != NULL)
+    {
+        if (strcmp(searchString, "all") == 0)
+        {
+            printf("Registro: %s", linea);
+        }
+        else
+        {
+            int length = strlen(linea);
+            if (linea[length - 1] == '\n')
+            {
+                linea[length - 1] = 0;
+            }
+            if (strcmp(searchString, linea) == 0)
+            {
+                printf("Registro: %s \n", linea);
+            }
+        }
+    }
     return 0;
 }
 
 // FUNCION INSERT (Podrá haber valores repetidos)
-int insertFunction(char *insertString, FILE *archivo, char *ruta, char *all)
+// jvdb.exe insert clientes NULL Cavirr
+int insertFunction(char *search, FILE *archivo, char *ruta, char *newValue)
 {
     archivo = fopen(ruta, "a");
     if (archivo == NULL)
@@ -30,28 +53,28 @@ int insertFunction(char *insertString, FILE *archivo, char *ruta, char *all)
     }
     else
     {
-        fprintf(archivo, insertString);
+        fputs(strcat(newValue, "\n"), archivo);
         fclose(archivo);
         // liberar memoria
         free(ruta);
 
-        printSucces();
+        printSuccess();
 
         return 0;
     }
 }
 // FUNCION DELETE (Se eliminaran todas las coincidencias)
-int deleteFunction(char *deleteString, FILE *archivo, char *ruta, char *all)
+int deleteFunction(char *search, FILE *archivo, char *ruta, char *newValue)
 {
     return 0;
 }
 // FUNCION UPDATE (Se actualizarán todas las coincidencias)
-int updateFunction(char *updateString, FILE *archivo, char *ruta, char *all)
+int updateFunction(char *search, FILE *archivo, char *ruta, char *newValue)
 {
     return 0;
 }
 // FUNCION UPSERT
-int upsertFunction(char *upsertString, FILE *archivo, char *ruta, char *all)
+int upsertFunction(char *search, FILE *archivo, char *ruta, char *newValue)
 {
     return 0;
 }
@@ -60,32 +83,35 @@ int main(int argc, char *argv[])
 {
 
     char *directorio = "db";
+    char *newValue = argv[4];
+    char *search = argv[3];
     char *baseDatos = argv[2];
     char *operacion = argv[1];
     baseDatos = strcat(baseDatos, ".txt");
     FILE *archivo;
 
+    char *ruta;
     // allocate, asignar memoria de forma dinamica con tamaño de strings + '/' y null fin
-    char *ruta = malloc(strlen(directorio) + strlen(baseDatos) + 2);
+    // char *ruta = malloc(strlen(directorio) + strlen(baseDatos) + 2);
 
     // generar la ruta con el / de por medio (por formato)
     sprintf(ruta, "%s/%s", directorio, baseDatos);
 
-    if (strcmp(operacion, "insert"))
+    if (strcmp(operacion, "insert") == 0)
     {
-        insertFunction(argv[3], archivo, ruta, argv[4]);
+        insertFunction(search, archivo, ruta, newValue);
     }
-    else if (strcmp(operacion, "select"))
+    else if (strcmp(operacion, "select") == 0)
     {
-        selectFunction(argv[3], archivo, ruta, argv[4]);
+        selectFunction(search, archivo, ruta, newValue);
     }
-    else if (strcmp(operacion, "delete"))
+    else if (strcmp(operacion, "delete") == 0)
     {
-        deleteFunction(argv[3], archivo, ruta, argv[4]);
+        deleteFunction(search, archivo, ruta, newValue);
     }
-    else if (strcmp(operacion, "upsert"))
+    else if (strcmp(operacion, "upsert") == 0)
     {
-        upsertFunction(argv[3], archivo, ruta, argv[4]);
+        upsertFunction(search, archivo, ruta, newValue);
     }
     else
     {
